@@ -1,0 +1,75 @@
+﻿@model IEnumerable<IELCadastroEstudante.ViewModel.EstudanteViewModel>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Listagem de Estudantes</title>
+</head>
+<body>
+
+    <form asp-controller="Estudante" asp-action="Report">
+
+        @if (ViewBag.Erro != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@ViewBag.Erro</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (ViewBag.Sucesso != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>@ViewBag.Sucesso</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+
+        <br>
+
+        <div>
+            <div>
+                <h5>
+                    RELATÓRIO DE ESTUDANTES CADASTRADOS
+                </h5>
+            </div>
+            <div>
+                @using (Html.BeginForm("Report", "Estudante", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <label for="IdInstituicaoEnsino" class="form-label"><b>INSTITUIÇÃO</b></label>
+                            <div>
+                                @Html.DropDownList("IdInstituicaoEnsino", new SelectList(ViewBag.Instituicao, "Id", "NomeInstituicao"), new { @class = "form-control chosen validate" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <input type="text" name="nomeCurso" id="nomeCurso" class="form-control" placeholder="Nome Curso" />
+                        </div>
+                    </div>
+
+                    <div class="row align-content-lg-start">
+                        <div class="col-lg-2">
+                            <input id="filtrar" type="submit" value="filtrar" class="btn btn-lg  btn-outline-primary" />
+                        </div>
+                    </div>
+                }
+            </div>
+           @*  <div class="row col-sm-2 ">
+                @Html.ActionLink("GerarPlanilha", "GerarPlanilha", new { }, new { @class = "btn btn-lg  btn-outline-success" })
+                </div> *@
+        </div>
+        <br>
+
+    </form>
+</body>
+</html>

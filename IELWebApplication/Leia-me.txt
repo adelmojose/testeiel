@@ -1,0 +1,14 @@
+﻿
+O usuário foi deixado fixo, são eles
+Usuario = "admin"
+Senha = "123456"
+
+===================================================
+script de banco estão na pasta scripts do projeto. 
+
+1_testeiel_banco.sql -> Criação da base de dados IEL
+
+2_testeiel_tabelas.sql -> Criação das tabelas e alguns inserts
+
+
+

@@ -1,0 +1,117 @@
+﻿@model IELCadastroEstudante.ViewModel.EstudanteViewModel
+@{
+    ViewData["Title"] = "Cadastro de Estudante";
+}
+
+<h5><b>Dados Estudante</b></h5>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery.inputmask/jquery.inputmask.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+
+  
+<script>
+$(document).ready(function() {
+    $("#NumeroCPF").inputmask({
+  mask: ['999.999.999-99'],
+  keepStatic: true   });
+});
+</script>
+<form asp-controller="Estudante" asp-action="">
+    @Html.HiddenFor(m => m.Id)
+
+      @if (ViewBag.Erro != null)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>@ViewBag.Erro</strong> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+         @if (ViewBag.Sucesso != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>@ViewBag.Sucesso</strong> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+    <br>
+<div class="align-content-sm-center"> 
+
+    <div class="row">
+         <div class="col-md-6">
+            <div class="form-group">
+                    <label for="NumeroCPF" class="form-label"><b>CPF</b></label>
+                    <input class="form-control" id="NumeroCPF" name="NumeroCPF" maxlength="14" placeholder="Informe o CPF" />
+                    @Html.ValidationMessageFor(model => model.NumeroCPF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="NomeEstudante" class="form-label"><b>NOME </b></label>
+                    <div>
+                        @Html.TextBoxFor(m => m.NomeEstudante, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NomeEstudante, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Endereco" class="form-label"><b>ENDEREÇO</b></label>
+                    <div>
+                        @Html.TextBoxFor(m => m.Endereco, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="IdCidade" class="form-label"><b>CIDADE</b></label>
+                    <div>
+                        @Html.DropDownList("IdCidade", new SelectList(ViewBag.Cidade, "Id", "NomeCidade"), new { @class = "form-control chosen validate" })
+                        @Html.ValidationMessageFor(model => model.IdCidade, "", new { @class = "text-danger" })
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="IdInstituicaoEnsino" class="form-label"><b>INSTITUIÇÃO</b></label>
+                    <div>
+                        @Html.DropDownList("IdInstituicaoEnsino", new SelectList(ViewBag.Instituicao, "Id", "NomeInstituicao"), new { @class = "form-control chosen validate" })
+                        @Html.ValidationMessageFor(model => model.IdInstituicaoEnsino, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="NomeCurso" class="form-label"><b>CURSO</b></label>
+                    <div>
+                        @Html.TextBoxFor(m => m.NomeCurso, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NomeCurso, "", new { @class = "text-danger" })
+                    </div> 
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="DataConclusao" class="form-label"><b>CONCLUSÃO </b></label>
+                    <div>
+                        @Html.TextBoxFor(m => m.DataConclusao, new { @class = "form-control input-validate datepicker", @maxlength = "10", @placeholder = "dd/mm/yyyy" })
+                        @Html.ValidationMessageFor(model => model.DataConclusao, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <br>
+    <div class="col-lg-10 align-content-lg-center">
+        
+        <button type="submit" class="btn btn-lg btn-outline-primary" id="btnLiberar" name="btnLiberar" value="btnLiberar" asp-action="Register">Salvar</button>
+
+    </div> 
+</div>
+
+</form>

@@ -1,0 +1,147 @@
+﻿@model IEnumerable<IELCadastroEstudante.ViewModel.EstudanteViewModel>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Listagem de Estudantes</title>
+</head>
+<body>
+
+    <form asp-controller="Estudante" asp-action="List">
+
+        @if (ViewBag.Erro != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@ViewBag.Erro</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (ViewBag.Sucesso != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>@ViewBag.Sucesso</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        
+
+        <br>
+
+        <div>
+            <div >
+                <h5 >
+                    FILTRO
+                </h5>
+            </div>
+            <div >
+                @using (Html.BeginForm("List", "Estudante", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <input type="text" name="numeroCPF" id="numeroCPF" class="form-control" placeholder="CPF" />
+                    </div>
+                    <div class="form-group col-lg-3">
+                            <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome Estudante" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <input type="text" name="endereco" id="endereco" class="form-control" placeholder="Endereço" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label for="IdCidade" class="form-label"><b>CIDADE</b></label>
+                        <div>
+                            @Html.DropDownList("IdCidade", new SelectList(ViewBag.Cidade, "Id", "NomeCidade"), new { @class = "form-control chosen validate" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label for="IdInstituicaoEnsino" class="form-label"><b>INSTITUIÇÃO</b></label>
+                        <div>
+                            @Html.DropDownList("IdInstituicaoEnsino", new SelectList(ViewBag.Instituicao, "Id", "NomeInstituicao"), new { @class = "form-control chosen validate" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <input type="text" name="nomeCurso" id="nomeCurso" class="form-control" placeholder="Nome Curso" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-3 ">
+                        <input type="text" name="dataConclusao" id="dataini" class="form-control input-validate datepicker" placeholder="Data Início" maxlength="10" />
+                    </div>
+                </div>
+                <div class="justify-content-lg-start">
+                    <div class="col-sm-12">
+                            <input id="filtrar" type="submit" value="filtrar" class="btn btn-lg  btn-outline-primary" />
+                    </div>
+                </div>
+                    }                
+            </div>
+            <br />
+            <div class="row col-lg-2 justify-content-lg-end">
+                @Html.ActionLink("Novo", "Register", new { }, new { @class = "btn btn-lg  btn-outline-success" })
+            </div>
+        </div>
+        <br>
+
+        <table class="table">
+            <thead class="table-head style-primary">
+                <tr>
+                    
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        CPF
+                    </th>
+                    <th>
+                        NOME
+                    </th>
+                    <th>
+                        CURSO
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumeroCPF)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeEstudante)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomeCurso)
+                        </td>
+                        
+                        <td>
+                            @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</body>
+</html>

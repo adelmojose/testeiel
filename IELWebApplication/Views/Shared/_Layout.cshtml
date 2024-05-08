@@ -1,0 +1,61 @@
+﻿@using System.Security.Principal
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IEL- Cadastro de Estudantes</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/IELCadastroEstudante.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div>
+                <a asp-area="" asp-controller="Estudante" asp-action="Index">
+                    <img src="~/image/logo-navbar.png" />
+                </a>
+            </div>
+            <div class="card-head style-primary container" height="100">
+                
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" height="100">
+                     @if (User.Identity?.IsAuthenticated == true)
+                    {
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-action="List"><b>Lista</b></a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-action="Report"><b>Relatório</b></a>
+                        </li>
+                    </ul>
+                    }
+                </div>
+                <div>
+                    <partial name="_LoginPartial" />
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-center">
+        <div class="container">
+            &copy; 2024 - IEL - Cadastro de Estudantes 
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery.inputmask/jquery.inputmask.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
